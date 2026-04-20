@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Neue+Montreal:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --black:#080808;
+  --black2:#111;
+  --white:#FAFAF8;
+  --off:#F2EEE6;
+  --gold:#C49530;
+  --gold2:#D9AA4A;
+  --gold3:#ECC96A;
+  --vino:#5C1515;
+  --ch:#141414;
+  --mid:#6B6460;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto;z-index:300;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;transition:background .4s,border-color .4s;background:rgba(8,8,8,.0);border-bottom:1px solid transparent;}
+nav.scrolled{background:rgba(8,8,8,.95);backdrop-filter:blur(20px);border-bottom:1px solid rgba(196,149,48,.12);}
+.nl{font-family:'Cormorant',serif;font-size:20px;font-weight:600;letter-spacing:.3em;color:var(--white);}
+.nl em{font-style:normal;color:var(--gold);}
+.nav-right{display:flex;align-items:center;gap:24px;}
+.nav-links{display:none;gap:32px;list-style:none;}
+.nav-links a{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(250,250,248,.5);text-decoration:none;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nb{padding:10px 24px;background:var(--gold);color:var(--black);font-size:10px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;font-weight:500;transition:background .2s;}
+.nb:hover{background:var(--gold2);}
+@media(min-width:700px){.nav-links{display:flex;} nav{padding:20px 56px;}}
+
+/* HERO — full bleed image */
+.hero{height:100svh;position:relative;display:flex;align-items:flex-end;overflow:hidden;}
+.hero-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80') center/cover no-repeat;transform:scale(1.05);animation:zoom 12s ease-in-out infinite alternate;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.92) 0%,rgba(8,8,8,.45) 40%,rgba(8,8,8,.1) 100%);}
+@keyframes zoom{from{transform:scale(1.05);}to{transform:scale(1);}  }
+
+.hero-content{position:relative;z-index:2;padding:0 32px 64px;width:100%;}
+.heyebrow{font-size:9.5px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:12px;opacity:0;animation:fu 1s ease forwards .3s;}
+.heyebrow::before{content:'';width:30px;height:1px;background:var(--gold);flex-shrink:0;}
+.htitle{font-family:'Cormorant',serif;font-size:clamp(60px,14vw,110px);line-height:.88;font-weight:300;letter-spacing:-.02em;color:var(--white);opacity:0;animation:fu 1.2s ease forwards .5s;}
+.htitle em{font-style:italic;color:var(--gold2);}
+.hbtns{display:flex;flex-direction:column;gap:10px;margin-top:36px;max-width:360px;opacity:0;animation:fu .9s ease forwards 1.1s;}
+.btn-solid{padding:16px 32px;background:var(--gold);color:var(--black);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:500;text-align:center;transition:background .2s;}
+.btn-solid:hover{background:var(--gold2);}
+.btn-ghost{padding:15px 32px;border:1px solid rgba(250,250,248,.25);color:rgba(250,250,248,.7);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;text-align:center;display:flex;align-items:center;justify-content:center;gap:10px;transition:border-color .2s,color .2s;}
+.btn-ghost:hover{border-color:rgba(250,250,248,.6);color:var(--white);}
+.wi{width:15px;height:15px;fill:currentColor;flex-shrink:0;}
+@media(min-width:700px){.hero-content{padding:0 56px 80px;} .hbtns{flex-direction:row;}}
+
+/* TICKER */
+.ticker{background:var(--gold);padding:12px 0;overflow:hidden;white-space:nowrap;}
+.tk-inner{display:inline-flex;animation:tick 22s linear infinite;}
+.tk-item{font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--black);font-weight:500;padding:0 28px;}
+.tk-item::before{content:'✦';margin-right:28px;opacity:.5;}
+@keyframes tick{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+/* WHITE SECTION — products */
+.sec-white{background:var(--white);color:var(--black);padding:80px 32px;}
+@media(min-width:700px){.sec-white{padding:100px 56px;}}
+.slabel{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.slabel::after{content:'';height:1px;background:rgba(196,149,48,.25);flex:1;max-width:120px;}
+.stitle-dark{font-family:'Cormorant',serif;font-size:clamp(34px,7vw,52px);font-weight:300;line-height:1.05;color:var(--black);margin-bottom:56px;}
+.stitle-dark em{font-style:italic;color:var(--gold);}
+
+/* PRODUCT CARDS */
+.pgrid{display:flex;flex-direction:column;gap:16px;}
+@media(min-width:700px){.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}}
+
+.pcard{background:var(--white);border:1px solid rgba(0,0,0,.08);overflow:hidden;transition:box-shadow .35s,transform .35s;}
+.pcard:hover{box-shadow:0 20px 50px rgba(0,0,0,.1);transform:translateY(-4px);}
+.pcard-img{height:200px;position:relative;overflow:hidden;}
+.pcard-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.pcard:hover .pcard-img img{transform:scale(1.05);}
+.pcard-img-overlay{position:absolute;inset:0;opacity:.15;}
+.rojo .pcard-img-overlay{background:var(--vino);}
+.dorado .pcard-img-overlay{background:var(--gold);}
+.negro .pcard-img-overlay{background:var(--black);}
+.pcard-bar{height:4px;}
+.rojo .pcard-bar{background:var(--vino);}
+.dorado .pcard-bar{background:linear-gradient(90deg,var(--gold),var(--gold2));}
+.negro .pcard-bar{background:var(--ch);}
+.pcard-body{padding:24px 22px 22px;}
+.pmeta{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
+.pname{font-family:'Cormorant',serif;font-size:28px;font-weight:400;color:var(--black);line-height:1;margin-bottom:4px;}
+.dorado .pname{color:var(--gold);}
+.pproc{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;}
+.rojo .pproc{color:var(--vino);}
+.dorado .pproc{color:var(--gold);}
+.negro .pproc{color:var(--ch);}
+.pdiv{height:1px;background:rgba(0,0,0,.06);margin-bottom:14px;}
+.ptags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px;}
+.ptag{font-size:10px;padding:3px 10px;border:1px solid rgba(0,0,0,.1);color:#555;letter-spacing:.04em;}
+.pcta{display:flex;align-items:center;justify-content:space-between;}
+.pprice{font-family:'Cormorant',serif;font-size:22px;color:var(--black);}
+.pprice span{font-size:11px;font-family:'Inter',sans-serif;font-weight:300;color:var(--mid);}
+.pbtn{padding:9px 16px;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;font-weight:500;cursor:pointer;}
+.rojo .pbtn{background:var(--vino);color:var(--white);}
+.dorado .pbtn{background:var(--gold);color:var(--black);}
+.negro .pbtn{background:var(--ch);color:var(--white);}
+
+/* BLACK SECTION — immersive */
+.sec-black{background:var(--black);color:var(--white);padding:80px 32px;position:relative;overflow:hidden;}
+@media(min-width:700px){.sec-black{padding:100px 56px;}}
+.stitle-light{font-family:'Cormorant',serif;font-size:clamp(34px,7vw,52px);font-weight:300;line-height:1.05;color:var(--white);margin-bottom:56px;}
+.stitle-light em{font-style:italic;color:var(--gold2);}
+
+/* IMMERSIVE IMAGE ROW */
+.img-row{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:700px){.img-row{grid-template-columns:1.4fr 1fr 1fr;}}
+.img-block{position:relative;overflow:hidden;}
+.img-block img{width:100%;height:280px;object-fit:cover;display:block;transition:transform .7s ease;}
+.img-block:hover img{transform:scale(1.04);}
+.img-block-tall img{height:360px;}
+@media(min-width:700px){.img-block img,.img-block-tall img{height:420px;}}
+.img-caption{position:absolute;bottom:0;left:0;right:0;padding:20px 20px 18px;background:linear-gradient(to top,rgba(8,8,8,.8),transparent);}
+.img-cap-label{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.img-cap-title{font-family:'Cormorant',serif;font-size:20px;font-weight:400;color:var(--white);}
+
+/* PHILOSOPHY */
+.sec-phil{background:var(--black2);padding:80px 32px;position:relative;overflow:hidden;text-align:center;}
+@media(min-width:700px){.sec-phil{padding:110px 56px;}}
+.phil-deco{position:absolute;inset:0;pointer-events:none;}
+.phil-ring{position:absolute;border-radius:50%;border:1px solid rgba(196,149,48,.06);top:50%;left:50%;transform:translate(-50%,-50%);}
+.p1{width:300px;height:300px;}.p2{width:500px;height:500px;}.p3{width:700px;height:700px;}
+.phil-q{font-family:'Cormorant',serif;font-size:clamp(28px,6vw,48px);font-weight:300;font-style:italic;line-height:1.3;color:var(--white);max-width:700px;margin:0 auto 28px;position:relative;}
+.phil-q em{font-style:normal;color:var(--gold2);}
+.phil-q::before{content:'\201C';position:absolute;top:-20px;left:-10px;font-size:90px;color:rgba(196,149,48,.08);font-style:normal;line-height:1;}
+.phil-attr{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(250,250,248,.22);}
+
+/* ORIGIN — split */
+.sec-origin{display:grid;grid-template-columns:1fr;min-height:500px;}
+@media(min-width:700px){.sec-origin{grid-template-columns:1fr 1fr;}}
+.origin-img{position:relative;overflow:hidden;min-height:320px;}
+.origin-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;}
+.origin-img-overlay{position:absolute;inset:0;background:rgba(8,8,8,.35);}
+.origin-text{background:var(--white);padding:60px 32px;display:flex;flex-direction:column;justify-content:center;}
+@media(min-width:700px){.origin-text{padding:72px 56px;}}
+.origin-text .slabel{color:var(--gold);}
+.origin-h{font-family:'Cormorant',serif;font-size:clamp(32px,5vw,44px);font-weight:300;color:var(--black);line-height:1.05;margin-bottom:18px;}
+.origin-h em{font-style:italic;}
+.origin-body{font-size:13.5px;line-height:1.85;color:#5A4535;max-width:420px;}
+.ostats{display:flex;gap:36px;margin-top:36px;padding-top:28px;border-top:1px solid rgba(0,0,0,.08);}
+.ostat-n{font-family:'Cormorant',serif;font-size:38px;font-weight:300;color:var(--gold);line-height:1;}
+.ostat-n sup{font-size:16px;}
+.ostat-l{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mid);margin-top:4px;}
+
+/* BUY — white */
+.sec-buy{background:var(--off);padding:80px 32px;}
+@media(min-width:700px){.sec-buy{padding:100px 56px;}}
+.bcards{display:grid;grid-template-columns:1fr;gap:14px;margin-top:48px;}
+@media(min-width:700px){.bcards{grid-template-columns:1fr 1fr;}}
+.bcard{background:var(--white);padding:36px 32px;border:1px solid rgba(0,0,0,.07);position:relative;overflow:hidden;transition:box-shadow .3s,transform .3s;}
+.bcard:hover{box-shadow:0 16px 40px rgba(0,0,0,.08);transform:translateY(-3px);}
+.bnum{font-family:'Cormorant',serif;font-size:80px;font-weight:300;color:rgba(196,149,48,.1);position:absolute;top:0;right:14px;line-height:1;}
+.bicon{width:42px;height:42px;border:1px solid rgba(196,149,48,.3);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:18px;}
+.bhead{font-family:'Cormorant',serif;font-size:24px;font-weight:400;color:var(--black);margin-bottom:8px;}
+.bbody{font-size:13.5px;line-height:1.7;color:#5A4535;}
+.blink{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);text-decoration:none;}
+.blink::after{content:'→';}
+
+/* FINAL CTA — black + image */
+.sec-final{position:relative;overflow:hidden;min-height:520px;display:flex;align-items:center;justify-content:center;text-align:center;}
+.final-img{position:absolute;inset:0;}
+.final-img img{width:100%;height:100%;object-fit:cover;}
+.final-overlay{position:absolute;inset:0;background:rgba(8,8,8,.78);}
+.final-content{position:relative;z-index:2;padding:80px 32px;}
+.ftag{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
+.ftitle{font-family:'Cormorant',serif;font-size:clamp(50px,11vw,88px);font-weight:300;line-height:.95;color:var(--white);margin-bottom:44px;}
+.ftitle em{font-style:italic;color:var(--gold2);}
+.fbtns{display:flex;flex-direction:column;gap:10px;align-items:center;}
+@media(min-width:700px){.fbtns{flex-direction:row;justify-content:center;}}
+
+/* FOOTER */
+footer{background:var(--black);border-top:1px solid rgba(196,149,48,.1);padding:28px 32px;display:flex;flex-direction:column;gap:12px;}
+@media(min-width:700px){footer{flex-direction:row;justify-content:space-between;align-items:center;padding:28px 56px;}}
+.flogo{font-family:'Cormorant',serif;font-size:18px;font-weight:600;letter-spacing:.3em;color:var(--white);}
+.flogo em{font-style:normal;color:var(--gold);}
+.fcopy{font-size:10.5px;color:rgba(250,250,248,.18);}
+.forgn{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(196,149,48,.35);}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease;}
+.rv.v{opacity:1;transform:none;}
+.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.45s;}
+@keyframes fu{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+</style>
+
+<nav id="nav">
+  <div class="nl">PU<em>SU</em></div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#">Colección</a></li>
+      <li><a href="#">Origen</a></li>
+      <li><a href="#">Nosotros</a></li>
+    </ul>
+    <a href="#" class="nb">Comprar</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="heyebrow">Single Origin · Perú · Arábica</p>
+    <h1 class="htitle">Café<br>que<br><em>se siente.</em></h1>
+    <div class="hbtns">
+      <a href="#" class="btn-solid">Ver la colección</a>
+      <a href="#" class="btn-ghost">
+        <svg class="wi" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.136 1.535 5.874L.057 23.943l6.273-1.644A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.877 9.877 0 01-5.031-1.378l-.36-.214-3.733.979 1.001-3.648-.235-.375A9.861 9.861 0 012.106 12C2.106 6.53 6.53 2.106 12 2.106S21.894 6.53 21.894 12 17.47 21.894 12 21.894z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="tk-inner">
+    <span class="tk-item">Arábica Peruano</span><span class="tk-item">Proceso Lavado</span><span class="tk-item">Selva Alta</span><span class="tk-item">1,600 msnm</span><span class="tk-item">Tueste Medio</span><span class="tk-item">Single Origin Perú</span><span class="tk-item">Arábica Peruano</span><span class="tk-item">Proceso Lavado</span><span class="tk-item">Selva Alta</span><span class="tk-item">1,600 msnm</span><span class="tk-item">Tueste Medio</span><span class="tk-item">Single Origin Perú</span>
+  </div>
+</div>
+
+<!-- PRODUCTS — white -->
+<section class="sec-white">
+  <div class="rv">
+    <div class="slabel">La Colección</div>
+    <h2 class="stitle-dark">Tres expresiones<br><em>del mismo origen</em></h2>
+  </div>
+  <div class="pgrid">
+    <div class="pcard rojo rv d1">
+      <div class="pcard-img">
+        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="Colibrí Rojo">
+        <div class="pcard-img-overlay"></div>
+      </div>
+      <div class="pcard-bar"></div>
+      <div class="pcard-body">
+        <p class="pmeta">Base de línea</p>
+        <h3 class="pname">Colibrí Rojo</h3>
+        <p class="pproc">Proceso Lavado</p>
+        <div class="pdiv"></div>
+        <div class="ptags"><span class="ptag">Cacao</span><span class="ptag">Nuez</span><span class="ptag">Final dulce</span></div>
+        <div class="pcta"><div class="pprice">S/ 38 <span>/ 250g</span></div><a href="#" class="pbtn">Añadir</a></div>
+      </div>
+    </div>
+    <div class="pcard dorado rv d2">
+      <div class="pcard-img">
+        <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Colibrí Dorado">
+        <div class="pcard-img-overlay"></div>
+      </div>
+      <div class="pcard-bar"></div>
+      <div class="pcard-body">
+        <p class="pmeta">Destacado</p>
+        <h3 class="pname">Colibrí Dorado</h3>
+        <p class="pproc">Proceso Honey</p>
+        <div class="pdiv"></div>
+        <div class="ptags"><span class="ptag">Miel</span><span class="ptag">Durazno</span><span class="ptag">Caramelo</span></div>
+        <div class="pcta"><div class="pprice">S/ 46 <span>/ 250g</span></div><a href="#" class="pbtn">Añadir</a></div>
+      </div>
+    </div>
+    <div class="pcard negro rv d3">
+      <div class="pcard-img">
+        <img src="https://images.unsplash.com/photo-1497515114629-f71d768fd07c?w=600&q=80" alt="Colibrí Negro">
+        <div class="pcard-img-overlay"></div>
+      </div>
+      <div class="pcard-bar"></div>
+      <div class="pcard-body">
+        <p class="pmeta">Intenso</p>
+        <h3 class="pname">Colibrí Negro</h3>
+        <p class="pproc">Proceso Natural</p>
+        <div class="pdiv"></div>
+        <div class="ptags"><span class="ptag">Frutos rojos</span><span class="ptag">Chocolate</span><span class="ptag">Intenso</span></div>
+        <div class="pcta"><div class="pprice">S/ 52 <span>/ 250g</span></div><a href="#" class="pbtn">Añadir</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMAGE ROW — black -->
+<section class="sec-black">
+  <div class="rv">
+    <div class="slabel" style="color:var(--gold);">El Ritual</div>
+    <h2 class="stitle-light">Cada taza,<br><em>una experiencia</em></h2>
+  </div>
+  <div class="img-row rv d1">
+    <div class="img-block img-block-tall">
+      <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&q=80" alt="Coffee ritual">
+      <div class="img-caption">
+        <div class="img-cap-label">Origen</div>
+        <div class="img-cap-title">Selva Alta Peruana</div>
+      </div>
+    </div>
+    <div class="img-block">
+      <img src="https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=600&q=80" alt="Brewing">
+      <div class="img-caption">
+        <div class="img-cap-label">Proceso</div>
+        <div class="img-cap-title">Tueste Artesanal</div>
+      </div>
+    </div>
+    <div class="img-block">
+      <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Cup">
+      <div class="img-caption">
+        <div class="img-cap-label">Resultado</div>
+        <div class="img-cap-title">Perfil Único</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="sec-phil">
+  <div class="phil-deco"><div class="phil-ring p1"></div><div class="phil-ring p2"></div><div class="phil-ring p3"></div></div>
+  <p class="phil-q rv">"No estamos vendiendo café.<br>Estamos vendiendo <em>cómo se siente tomarlo.</em>"</p>
+  <p class="phil-attr rv d1">— Pusu Coffee · Lima, Perú</p>
+</section>
+
+<!-- ORIGIN — split -->
+<section class="sec-origin">
+  <div class="origin-img">
+    <img src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?w=900&q=80" alt="Coffee origin Peru">
+    <div class="origin-img-overlay"></div>
+  </div>
+  <div class="origin-text">
+    <div class="rv">
+      <div class="slabel">Nuestro Origen</div>
+      <h2 class="origin-h">Arábica Catimor<br><em>de las alturas</em></h2>
+    </div>
+    <p class="origin-body rv d1">Cultivado en los valles de la selva alta peruana, a más de 1,600 msnm. Variedad Catimor: estable, equilibrada, con perfiles que van del cacao a la nuez y un dulzor limpio que persiste.</p>
+    <div class="ostats rv d2">
+      <div><div class="ostat-n">1,600<sup>m</sup></div><div class="ostat-l">Altitud</div></div>
+      <div><div class="ostat-n">100%</div><div class="ostat-l">Arábica</div></div>
+      <div><div class="ostat-n">3</div><div class="ostat-l">Procesos</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO BUY — off-white -->
+<section class="sec-buy">
+  <div class="rv">
+    <div class="slabel">¿Cómo comprar?</div>
+    <h2 class="stitle-dark">Dos formas de<br><em>hacerlo tuyo</em></h2>
+  </div>
+  <div class="bcards">
+    <div class="bcard rv d1">
+      <div class="bnum">01</div>
+      <div class="bicon">🛒</div>
+      <h3 class="bhead">Tienda online</h3>
+      <p class="bbody">Elige tu blend, paga con tarjeta o Yape y recibe en Lima en 24–48 horas. Rápido, seguro, sin complicaciones.</p>
+      <a href="#" class="blink">Ir a la tienda</a>
+    </div>
+    <div class="bcard rv d2">
+      <div class="bnum">02</div>
+      <div class="bicon">💬</div>
+      <h3 class="bhead">WhatsApp directo</h3>
+      <p class="bbody">Asistente inteligente: te guía, resuelve dudas y confirma tu pedido en minutos. Velocidad de bot, atención real.</p>
+      <a href="#" class="blink">Abrir chat</a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="sec-final">
+  <div class="final-img">
+    <img src="https://images.unsplash.com/photo-1504630083234-14187a9df0f5?w=1400&q=80" alt="Coffee experience">
+  </div>
+  <div class="final-overlay"></div>
+  <div class="final-content">
+    <p class="ftag rv">Empieza aquí</p>
+    <h2 class="ftitle rv d1">Tu primer<br><em>Colibrí</em><br>te espera.</h2>
+    <div class="fbtns rv d2">
+      <a href="#" class="btn-solid">Comprar ahora</a>
+      <a href="#" class="btn-ghost">
+        <svg class="wi" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.133.558 4.136 1.535 5.874L.057 23.943l6.273-1.644A11.953 11.953 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.894a9.877 9.877 0 01-5.031-1.378l-.36-.214-3.733.979 1.001-3.648-.235-.375A9.861 9.861 0 012.106 12C2.106 6.53 6.53 2.106 12 2.106S21.894 6.53 21.894 12 17.47 21.894 12 21.894z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flogo">PU<em>SU</em></div>
+  <div class="forgn">Lima · Perú</div>
+  <div class="fcopy">© 2026 Pusu Coffee</div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60);},{passive:true});
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v');}),{threshold:.1});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
