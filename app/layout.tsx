@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { CarritoProvider } from "@/lib/carrito/context";
 import CarritoDrawer from "@/components/features/carrito/CarritoDrawer";
+import CustomCursor from "@/components/ui/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Pusu Coffee — Café de especialidad peruano",
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="antialiased">
+        <CustomCursor />
         <CarritoProvider>
           <Navbar />
           <CarritoDrawer />

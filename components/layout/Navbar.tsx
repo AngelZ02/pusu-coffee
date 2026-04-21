@@ -1,18 +1,31 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useCarrito } from "@/lib/carrito/context";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const { cantidadItems, abrirDrawer } = useCarrito();
+  const badgeRef = useRef<HTMLSpanElement>(null);
+  const prevCantidad = useRef(cantidadItems);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  useEffect(() => {
+    if (cantidadItems > prevCantidad.current && badgeRef.current) {
+      badgeRef.current.classList.remove("cart-badge-animate");
+      void badgeRef.current.offsetWidth; // reflow para reiniciar animación
+      badgeRef.current.classList.add("cart-badge-animate");
+      const t = setTimeout(() => badgeRef.current?.classList.remove("cart-badge-animate"), 400);
+      return () => clearTimeout(t);
+    }
+    prevCantidad.current = cantidadItems;
+  }, [cantidadItems]);
 
   return (
     <nav className={`nav-base ${scrolled ? "nav-scrolled" : ""}`}>
@@ -61,7 +74,7 @@ export default function Navbar() {
             <path d="M16 10a4 4 0 01-8 0" />
           </svg>
           {cantidadItems > 0 && (
-            <span className="nav-carrito-badge">{cantidadItems}</span>
+            <span ref={badgeRef} className="nav-carrito-badge">{cantidadItems}</span>
           )}
         </button>
 

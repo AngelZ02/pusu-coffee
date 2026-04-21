@@ -10,7 +10,7 @@ export default function ScrollRevealScript() {
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries) => entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add("v"); }),
-      { threshold: 0.1 }
+      { threshold: 0.12 }
     );
     document.querySelectorAll(".rv").forEach((el) => obs.observe(el));
     return () => obs.disconnect();

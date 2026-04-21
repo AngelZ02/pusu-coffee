@@ -56,11 +56,23 @@
   0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
+@keyframes cartBounce {
+  0%, 100% { transform: scale(1); }
+  30%      { transform: scale(1.4); }
+  60%      { transform: scale(0.9); }
+}
+@keyframes checkDraw {
+  from { stroke-dashoffset: 100; opacity: 0; }
+  to   { stroke-dashoffset: 0;   opacity: 1; }
+}
+@keyframes spinGold {
+  to { transform: rotate(360deg); }
+}
 
 /* ─── Scroll reveal ─── */
 .rv {
   opacity: 0;
-  transform: translateY(26px);
+  transform: translateY(28px);
   transition: opacity .75s ease, transform .75s ease;
 }
 .rv.v { opacity: 1; transform: none; }
@@ -306,9 +318,10 @@
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 500;
-    transition: background .2s;
+    transition: background .25s ease, transform .25s ease;
   }
-  .btn-primary:hover { background: var(--color-brand-gold-2); }
+  .btn-primary:hover { background: var(--color-brand-gold-2); transform: translateY(-2px); }
+  .btn-primary:active { transform: translateY(0px) scale(0.98); }
 
   .wi {
     width: 15px;
@@ -632,10 +645,10 @@
   }
   .origin-h em { font-style: italic; }
   .origin-body {
-    font-size: 13.5px;
+    font-size: 14px;
     line-height: 1.85;
     color: #5A4535;
-    max-width: 420px;
+    max-width: 520px;
   }
   .ostat-n {
     font-family: var(--font-display);
@@ -699,9 +712,10 @@
     margin-bottom: 8px;
   }
   .bbody {
-    font-size: 13.5px;
-    line-height: 1.7;
+    font-size: 14px;
+    line-height: 1.85;
     color: #5A4535;
+    max-width: 520px;
   }
   .blink {
     display: inline-flex;
@@ -977,6 +991,9 @@
     font-family: var(--font-body);
     line-height: 1;
   }
+  .cart-badge-animate {
+    animation: cartBounce 0.4s ease;
+  }
 
   /* ── CHECKOUT ── */
   .checkout-grid {
@@ -1075,16 +1092,13 @@
   /* ── SPINNER ── */
   .spinner-gold {
     display: inline-block;
-    width: 14px;
-    height: 14px;
-    border: 1.5px solid rgba(196,149,48,0.25);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(196,149,48,0.2);
     border-top-color: var(--color-brand-gold);
     border-radius: 50%;
-    animation: spin 0.7s linear infinite;
+    animation: spinGold 0.7s linear infinite;
     flex-shrink: 0;
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
   }
 
   /* ── PEDIDO CONFIRMADO ── */
@@ -1104,9 +1118,10 @@
     animation: drawRing 0.6s ease forwards 0.2s;
   }
   .check-mark {
-    stroke-dasharray: 50;
-    stroke-dashoffset: 50;
-    animation: drawMark 0.4s ease forwards 0.7s;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: checkDraw 0.6s ease forwards 0.3s;
+    opacity: 0;
   }
   @keyframes scaleIn {
     from { opacity: 0; transform: scale(0.5); }
@@ -1132,9 +1147,10 @@
     font-weight: 500;
     text-align: center;
     display: inline-block;
-    transition: opacity .2s;
+    transition: opacity .25s ease, transform .25s ease;
   }
-  .btn-primary-dark:hover { opacity: .8; }
+  .btn-primary-dark:hover { opacity: .8; transform: translateY(-2px); }
+  .btn-primary-dark:active { transform: translateY(0px) scale(0.98); }
 
   .input-premium {
     width: 100%;
@@ -1152,4 +1168,34 @@
   }
   .input-premium:focus { border-bottom-color: var(--color-brand-gold-lt); }
   .input-premium::placeholder { color: rgba(61,32,16,.35); }
+
+  /* ── CUSTOM CURSOR (desktop only) ── */
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--color-brand-gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transition: width .2s ease, height .2s ease, opacity .3s ease;
+    will-change: transform;
+  }
+  .cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    border: 1px solid rgba(196,149,48,.4);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    transition: width .2s ease, height .2s ease, opacity .3s ease;
+    will-change: transform;
+  }
 }
