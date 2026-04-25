@@ -86,7 +86,7 @@ export default function CarritoDrawer() {
               style={{
                 fontFamily: "var(--font-display)",
                 fontSize: "20px",
-                color: "rgba(248,244,237,0.3)",
+                color: "var(--color-brand-cream-30)",
                 textAlign: "center",
                 fontStyle: "italic",
               }}
@@ -116,7 +116,7 @@ export default function CarritoDrawer() {
                       flexShrink: 0,
                       position: "relative",
                       overflow: "hidden",
-                      background: "#1a1a1a",
+                      background: "var(--color-brand-charcoal)",
                     }}
                   >
                     {item.imagen_url && (
@@ -221,7 +221,7 @@ export default function CarritoDrawer() {
                       style={{
                         background: "none",
                         border: "none",
-                        color: "rgba(248,244,237,0.2)",
+                        color: "var(--color-brand-cream-20)",
                         cursor: "pointer",
                         fontSize: "10px",
                         letterSpacing: "0.1em",
@@ -253,7 +253,7 @@ export default function CarritoDrawer() {
                 <div
                   className="drawer-total-row"
                   style={{
-                    borderTop: "1px solid rgba(196,149,48,0.2)",
+                    borderTop: "1px solid var(--color-brand-gold-20)",
                     paddingTop: "12px",
                     marginTop: "4px",
                   }}

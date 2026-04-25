@@ -132,7 +132,7 @@ function ConfirmadoContent() {
         <Link
           href="/productos"
           className="btn-ghost"
-          style={{ textAlign: "center", borderColor: "rgba(61,32,16,0.3)", color: "var(--color-brand-bark)" }}
+          style={{ textAlign: "center", borderColor: "var(--color-brand-bark-30)", color: "var(--color-brand-bark)" }}
         >
           Seguir explorando
         </Link>

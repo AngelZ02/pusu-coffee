@@ -1,27 +1,31 @@
-import ScrollRevealScript        from "@/components/ui/ScrollRevealScript";
-import HeroSection               from "@/components/features/landing/HeroSection";
-import TickerSection             from "@/components/features/landing/TickerSection";
-import ProductosSection          from "@/components/features/landing/ProductosSection";
-import RitualSection             from "@/components/features/landing/RitualSection";
-import PhilosophySection         from "@/components/features/landing/PhilosophySection";
-import OriginSection             from "@/components/features/landing/OriginSection";
-import HowToBuySection           from "@/components/features/landing/HowToBuySection";
-import FinalCTASection           from "@/components/features/landing/FinalCTASection";
+import HeroSection      from "@/components/features/landing/HeroSection";
+import CafesSection     from "@/components/features/landing/CafesSection";
+import PacksSection     from "@/components/features/landing/PacksSection";
+import RitualSection    from "@/components/features/landing/RitualSection";
+import TrustSection     from "@/components/features/landing/TrustSection";
+import FinalCTASection  from "@/components/features/landing/FinalCTASection";
+import Recomendador     from "@/components/features/landing/Recomendador";
 
 export default function LandingPage() {
   return (
     <>
-      {/* Activa scroll reveal (IntersectionObserver) para clases .rv */}
-      <ScrollRevealScript />
-
-      <HeroSection />
-      <TickerSection />
-      <ProductosSection />
-      <RitualSection />
-      <PhilosophySection />
-      <OriginSection />
-      <HowToBuySection />
-      <FinalCTASection />
+      <div
+        style={{
+          backgroundColor: "var(--color-brand-cream)",
+          color: "var(--color-brand-charcoal)",
+          fontFamily: "var(--font-body)",
+          overflowX: "hidden",
+        }}
+      >
+        <HeroSection />
+        <CafesSection />
+        <PacksSection />
+        <RitualSection />
+        <TrustSection />
+        <FinalCTASection />
+      </div>
+      {/* Client component — overlay + sticky CTA + scroll reveals */}
+      <Recomendador />
     </>
   );
 }

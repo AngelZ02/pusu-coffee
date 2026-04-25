@@ -59,8 +59,8 @@ export default function PagoMock({ pedidoId, total }: Props) {
         style={{
           textAlign: "center",
           padding: "24px",
-          background: "rgba(196,149,48,0.12)",
-          border: "1px solid rgba(196,149,48,0.15)",
+          background: "var(--color-brand-gold-12)",
+          border: "1px solid var(--color-brand-gold-15)",
           marginBottom: "32px",
         }}
       >
@@ -112,11 +112,11 @@ export default function PagoMock({ pedidoId, total }: Props) {
               flex: 1,
               padding: "12px",
               background: "transparent",
-              border: `1px solid ${metodo === m ? "var(--color-brand-gold)" : "rgba(0,0,0,0.1)"}`,
+              border: `1px solid ${metodo === m ? "var(--color-brand-gold)" : "var(--color-brand-black-10)"}`,
               color:
                 metodo === m
                   ? "var(--color-brand-gold)"
-                  : "rgba(61,32,16,0.4)",
+                  : "var(--color-brand-bark-40)",
               fontSize: "10px",
               letterSpacing: "0.18em",
               textTransform: "uppercase",
@@ -188,9 +188,9 @@ export default function PagoMock({ pedidoId, total }: Props) {
         <div
           style={{
             padding: "12px 16px",
-            border: "1px solid rgba(220,50,50,0.4)",
-            background: "rgba(220,50,50,0.06)",
-            color: "#e06060",
+            border: "1px solid var(--color-brand-error-border)",
+            background: "var(--color-brand-error-bg)",
+            color: "var(--color-brand-error)",
             fontSize: "12px",
             letterSpacing: "0.03em",
             fontFamily: "var(--font-body)",
@@ -217,15 +217,15 @@ export default function PagoMock({ pedidoId, total }: Props) {
               : "var(--color-brand-black)",
           border:
             estado === "error"
-              ? "1px solid rgba(220,50,50,0.5)"
+              ? "1px solid var(--color-brand-error-border-strong)"
               : estado === "loading"
-              ? "1px solid rgba(196,149,48,0.3)"
+              ? "1px solid var(--color-brand-gold-30)"
               : "none",
           color:
             estado === "loading"
               ? "var(--color-brand-gold)"
               : estado === "error"
-              ? "#e06060"
+              ? "var(--color-brand-error)"
               : "var(--color-brand-cream)",
           fontSize: "11px",
           letterSpacing: "0.22em",

@@ -37,7 +37,7 @@ export default function ProductoCardPremium({ producto, index }: Props) {
   const { agregarItem } = useCarrito();
   const accent = getAccentColor(producto.nombre, index);
   const gradient = getAccentGradient(producto.nombre, index);
-  const tags = producto.notas.split(",").map((t) => t.trim());
+  const tags = producto.notas ? producto.notas.split(",").map((t) => t.trim()) : [];
 
   const imgUrl = producto.imagen_url
     ? `${producto.imagen_url}?w=600&q=80`
@@ -110,7 +110,7 @@ export default function ProductoCardPremium({ producto, index }: Props) {
               display: "inline-block",
               padding: "4px 12px",
               background: "var(--color-brand-gold-pale)",
-              border: "1px solid rgba(196,149,48,0.3)",
+              border: `1px solid ${accent}`,
               color: "var(--color-brand-bark)",
               fontSize: "9px",
               letterSpacing: "0.22em",
@@ -145,7 +145,7 @@ export default function ProductoCardPremium({ producto, index }: Props) {
               style={{
                 padding: "4px 10px",
                 background: "transparent",
-                border: "1px solid rgba(61,32,16,0.15)",
+                border: "1px solid var(--color-brand-bark-15)",
                 color: "var(--color-brand-bark)",
                 fontSize: "10px",
                 letterSpacing: "0.08em",
@@ -171,7 +171,7 @@ export default function ProductoCardPremium({ producto, index }: Props) {
               fontFamily: "var(--font-display)",
               fontSize: "28px",
               fontWeight: 400,
-              color: "var(--color-brand-gold)",
+              color: accent,
               lineHeight: 1,
             }}
           >
@@ -195,7 +195,7 @@ export default function ProductoCardPremium({ producto, index }: Props) {
           onClick={handleAgregar}
           className="btn-primary-dark"
           type="button"
-          style={{ width: "100%", textAlign: "center" }}
+          style={{ width: "100%", textAlign: "center", background: accent, color: "var(--color-brand-white)" }}
         >
           Añadir al carrito
         </button>

@@ -1,53 +1,29 @@
-import Image from "next/image";
+import s from "./landing.module.css";
 
-const IMAGES = [
-  {
-    src:   "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&q=80",
-    alt:   "Coffee ritual",
-    label: "Origen",
-    title: "Selva Alta Peruana",
-    tall:  true,
-  },
-  {
-    src:   "https://images.unsplash.com/photo-1534040385115-33dcb3acba5b?w=600&q=80",
-    alt:   "Brewing",
-    label: "Proceso",
-    title: "Tueste Artesanal",
-    tall:  false,
-  },
-  {
-    src:   "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80",
-    alt:   "Cup",
-    label: "Resultado",
-    title: "Perfil Único",
-    tall:  false,
-  },
+const STEPS = [
+  { num: "01", verb: "Abrir",     text: "Romper el sello. Oler el grano antes que el agua. El aroma es la primera taza." },
+  { num: "02", verb: "Preparar",  text: "Pesar, calentar, esperar. La prisa se nota en la taza. 92 °C, 1:15 agua." },
+  { num: "03", verb: "Descubrir", text: "Primera nota, cuerpo, final. Lo que deja cuando ya no está es lo que importa." },
+  { num: "04", verb: "Repetir",   text: "No hay receta correcta, solo la que se vuelve tuya. Mañana, otra vez." },
 ];
 
 export default function RitualSection() {
   return (
-    <section className="sec-black">
-      <div className="rv">
-        <div className="slabel">El Ritual</div>
-        <h2 className="stitle-light">
-          Cada taza,<br /><em>una experiencia</em>
+    <section id="ritual" className={s.section}>
+      <div className={s.sectionHead}>
+        <div className={s.sectionNum}>03 / Ritual</div>
+        <h2 className={`${s.sectionTitle} rv-landing`}>
+          Cuatro gestos,{" "}
+          <em style={{ fontStyle: "italic", fontWeight: 300 }}>todos los días.</em>
         </h2>
       </div>
 
-      <div className="img-row rv d1">
-        {IMAGES.map((img) => (
-          <div key={img.src} className={`img-block ${img.tall ? "img-block-tall" : ""}`}>
-            <Image
-              src={img.src}
-              alt={img.alt}
-              fill
-              className="object-cover"
-              sizes="(max-width:700px) 100vw, 40vw"
-            />
-            <div className="img-caption">
-              <div className="img-cap-label">{img.label}</div>
-              <div className="img-cap-title">{img.title}</div>
-            </div>
+      <div className={s.ritual}>
+        {STEPS.map((step, i) => (
+          <div key={step.num} className={`${s.ritualStep} rv-landing d${Math.min(i + 1, 3)}`}>
+            <div className={s.ritualNum}>{step.num}</div>
+            <div className={s.ritualVerb}>{step.verb}</div>
+            <p className={s.ritualText}>{step.text}</p>
           </div>
         ))}
       </div>

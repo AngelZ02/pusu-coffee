@@ -25,6 +25,32 @@
   --color-brand-gold-pale:#F5EDD8;
   --color-brand-colibri-negro: #0F1B2D;
 
+  /* Error */
+  --color-brand-error:               #e06060;
+  --color-brand-error-bg:            rgba(220, 50, 50, 0.06);
+  --color-brand-error-border:        rgba(220, 50, 50, 0.40);
+  --color-brand-error-border-strong: rgba(220, 50, 50, 0.50);
+
+  /* Alpha — gold */
+  --color-brand-gold-12:  rgba(196, 149, 48, 0.12);
+  --color-brand-gold-15:  rgba(196, 149, 48, 0.15);
+  --color-brand-gold-20:  rgba(196, 149, 48, 0.20);
+  --color-brand-gold-30:  rgba(196, 149, 48, 0.30);
+
+  /* Alpha — bark */
+  --color-brand-bark-15:  rgba( 61,  32,  16, 0.15);
+  --color-brand-bark-30:  rgba( 61,  32,  16, 0.30);
+  --color-brand-bark-40:  rgba( 61,  32,  16, 0.40);
+  --color-brand-bark-60:  rgba( 61,  32,  16, 0.60);
+
+  /* Alpha — cream */
+  --color-brand-cream-20: rgba(248, 244, 237, 0.20);
+  --color-brand-cream-30: rgba(248, 244, 237, 0.30);
+  --color-brand-cream-40: rgba(248, 244, 237, 0.40);
+
+  /* Alpha — misc */
+  --color-brand-black-10: rgba(  8,   8,   8, 0.10);
+
   /* Tipografía */
   --font-display: 'Cormorant', Georgia, serif;
   --font-body:    'Inter', system-ui, sans-serif;
@@ -223,7 +249,7 @@
     justify-content: space-between;
     align-items: center;
     transition: background .4s, border-color .4s;
-    background: rgba(8,8,8,0);
+    background: rgba(8,8,8,0.88);
     border-bottom: 1px solid transparent;
   }
   @media (min-width: 700px) { .nav-base { padding: 20px 56px; } }
@@ -1079,7 +1105,7 @@
     border: none;
     border-bottom: 1px solid rgba(196,149,48,0.25);
     padding: 10px 0;
-    color: rgba(248,244,237,0.4);
+    color: var(--color-brand-cream-40);
     font-size: 16px;
     font-family: var(--font-body);
     letter-spacing: 0.08em;
@@ -1179,7 +1205,7 @@
     background: var(--color-brand-gold);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 10001;
     opacity: 0;
     transition: width .2s ease, height .2s ease, opacity .3s ease;
     will-change: transform;
@@ -1190,10 +1216,10 @@
     left: 0;
     width: 36px;
     height: 36px;
-    border: 1px solid rgba(196,149,48,.4);
+    border: 1px solid rgba(196,149,48,.8);
     border-radius: 50%;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 10000;
     opacity: 0;
     transition: width .2s ease, height .2s ease, opacity .3s ease;
     will-change: transform;

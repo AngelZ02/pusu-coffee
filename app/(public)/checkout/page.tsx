@@ -103,7 +103,7 @@ export default function CheckoutPage() {
             style={{
               fontFamily: "var(--font-display)",
               fontSize: "28px",
-              color: "rgba(61,32,16,0.4)",
+              color: "var(--color-brand-bark-40)",
               fontStyle: "italic",
               marginBottom: "24px",
             }}
@@ -221,9 +221,9 @@ export default function CheckoutPage() {
                   style={{
                     marginTop: "24px",
                     padding: "12px 16px",
-                    border: "1px solid rgba(220,50,50,0.4)",
-                    background: "rgba(220,50,50,0.06)",
-                    color: "#e06060",
+                    border: "1px solid var(--color-brand-error-border)",
+                    background: "var(--color-brand-error-bg)",
+                    color: "var(--color-brand-error)",
                     fontSize: "12px",
                     letterSpacing: "0.03em",
                     fontFamily: "var(--font-body)",
@@ -272,7 +272,7 @@ export default function CheckoutPage() {
                   letterSpacing: "-0.01em",
                   marginBottom: "28px",
                   paddingBottom: "20px",
-                  borderBottom: "1px solid rgba(196,149,48,0.15)",
+                  borderBottom: "1px solid var(--color-brand-gold-15)",
                 }}
               >
                 Resumen del pedido
@@ -344,7 +344,7 @@ export default function CheckoutPage() {
                 style={{
                   marginTop: "28px",
                   paddingTop: "20px",
-                  borderTop: "1px solid rgba(196,149,48,0.15)",
+                  borderTop: "1px solid var(--color-brand-gold-15)",
                   display: "flex",
                   flexDirection: "column",
                   gap: "10px",
@@ -361,7 +361,7 @@ export default function CheckoutPage() {
                     Subtotal
                   </span>
                   <span
-                    style={{ fontSize: "13px", color: "rgba(61,32,16,0.6)" }}
+                    style={{ fontSize: "13px", color: "var(--color-brand-bark-60)" }}
                   >
                     S/ {total}
                   </span>
@@ -377,7 +377,7 @@ export default function CheckoutPage() {
                     Envío (Lima)
                   </span>
                   <span
-                    style={{ fontSize: "13px", color: "rgba(61,32,16,0.6)" }}
+                    style={{ fontSize: "13px", color: "var(--color-brand-bark-60)" }}
                   >
                     S/ {ENVIO}
                   </span>
@@ -388,7 +388,7 @@ export default function CheckoutPage() {
                     justifyContent: "space-between",
                     marginTop: "8px",
                     paddingTop: "12px",
-                    borderTop: "1px solid rgba(196,149,48,0.2)",
+                    borderTop: "1px solid var(--color-brand-gold-20)",
                   }}
                 >
                   <span
@@ -417,7 +417,7 @@ export default function CheckoutPage() {
                 style={{
                   marginTop: "20px",
                   fontSize: "10px",
-                  color: "rgba(61,32,16,0.4)",
+                  color: "var(--color-brand-bark-40)",
                   letterSpacing: "0.08em",
                   textAlign: "center",
                   fontFamily: "var(--font-body)",

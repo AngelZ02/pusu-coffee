@@ -44,6 +44,8 @@ export default function CustomCursor() {
       scheduleHide();
     };
 
+    const INTERACTIVE = "a, button, [role='button'], .pcard, .prod-card-premium, .bcard";
+
     const onEnter = () => {
       dot.style.width = "16px";
       dot.style.height = "16px";
@@ -69,25 +71,23 @@ export default function CustomCursor() {
 
     window.addEventListener("mousemove", onMove);
 
-    // Hover sobre elementos interactivos
-    const selectors = "a, button, [role='button'], .pcard, .prod-card-premium, .bcard";
-    const attachHover = () => {
-      document.querySelectorAll(selectors).forEach((el) => {
-        el.addEventListener("mouseenter", onEnter);
-        el.addEventListener("mouseleave", onLeave);
-      });
+    // Hover delegado — captura elementos interactivos presentes y futuros (modal, etc.)
+    const onOver = (e: MouseEvent) => {
+      if ((e.target as Element).closest(INTERACTIVE)) onEnter();
     };
-    attachHover();
+    const onOut = (e: MouseEvent) => {
+      if ((e.target as Element).closest(INTERACTIVE)) onLeave();
+    };
+    document.addEventListener("mouseover", onOver);
+    document.addEventListener("mouseout", onOut);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onOver);
+      document.removeEventListener("mouseout", onOut);
       cancelAnimationFrame(rafId);
       clearTimeout(hideTimer);
       document.head.removeChild(style);
-      document.querySelectorAll(selectors).forEach((el) => {
-        el.removeEventListener("mouseenter", onEnter);
-        el.removeEventListener("mouseleave", onLeave);
-      });
     };
   }, []);
 

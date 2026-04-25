@@ -26,9 +26,9 @@ export async function POST(req: NextRequest) {
     }
 
     await auditLog({
-      action: "webhook.treble.received",
-      entity: "webhook_events",
-      metadata: { event_type: payload?.event ?? "unknown" },
+      accion: "webhook.treble.received",
+      tabla:  "webhook_events",
+      datos:  { event_type: payload?.event ?? "unknown" },
     });
 
     // Treble espera 200 para confirmar recepción

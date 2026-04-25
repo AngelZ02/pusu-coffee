@@ -55,10 +55,10 @@ export async function POST(req: NextRequest) {
       .eq("id", order.id);
 
     await auditLog({
-      action: "payment.success",
-      entity: "orders",
-      entity_id: order.id,
-      metadata: { charge_id: charge.id, amount: order.total },
+      accion:      "payment.success",
+      tabla:       "pedidos",
+      registro_id: order.id,
+      datos:       { charge_id: charge.id, amount: order.total },
     });
 
     return NextResponse.json({ ok: true, data: { charge_id: charge.id } });

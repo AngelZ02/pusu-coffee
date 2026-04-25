@@ -13,7 +13,7 @@ interface ClienteInput {
 interface ItemInput {
   productoId: string;
   cantidad: number;
-  precio: number; // precio del cliente — se valida contra Supabase abajo
+  precio: number; // client value — validated server-side below
 }
 
 interface CreateOrderBody {
@@ -21,20 +21,19 @@ interface CreateOrderBody {
   items: ItemInput[];
 }
 
-const ENVIO = 8; // soles, fijo Lima Metropolitana
+const ENVIO = 8; // soles, Lima Metropolitana
 
 export async function POST(req: NextRequest) {
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    req.headers.get("x-real-ip") ??
+    null;
+
   try {
     const body: CreateOrderBody = await req.json();
     const { cliente, items } = body;
 
-    // Validaciones de entrada
-    if (
-      !cliente?.email ||
-      !cliente?.nombre ||
-      !cliente?.telefono ||
-      !cliente?.direccion
-    ) {
+    if (!cliente?.email || !cliente?.nombre || !cliente?.telefono || !cliente?.direccion) {
       return NextResponse.json(
         { ok: false, error: "Datos del cliente incompletos" },
         { status: 400 }
@@ -49,7 +48,7 @@ export async function POST(req: NextRequest) {
 
     const supabase = createClient();
 
-    // Validar precios contra Supabase — NUNCA confiar en el precio del cliente
+    // ── Validate prices server-side — never trust client amounts ──
     const productoIds = items.map((i) => i.productoId);
     const { data: productos, error: prodError } = await supabase
       .from("productos")
@@ -63,7 +62,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Calcular total en servidor con precios reales
     let subtotal = 0;
     for (const item of items) {
       const prod = productos.find((p) => p.id === item.productoId);
@@ -81,19 +79,16 @@ export async function POST(req: NextRequest) {
       }
       subtotal += prod.precio * item.cantidad;
     }
-
     const total = subtotal + ENVIO;
 
-    // Upsert cliente por email
+    // ── Upsert cliente (email is the unique key) ──────────────────
     const { data: clienteData, error: clienteError } = await supabase
       .from("clientes")
       .upsert(
         {
-          nombre: cliente.nombre,
-          email: cliente.email,
+          nombre:   cliente.nombre,
+          email:    cliente.email,
           telefono: cliente.telefono,
-          direccion: cliente.direccion,
-          referencia: cliente.referencia ?? null,
         },
         { onConflict: "email", ignoreDuplicates: false }
       )
@@ -107,43 +102,82 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Insertar pedido con el primer item como producto principal
-    // (schema CLAUDE.md: pedidos tiene producto_id singular)
-    const primerItem = items[0];
+    // ── Insert direccion ──────────────────────────────────────────
+    const { data: direccionData, error: direccionError } = await supabase
+      .from("direcciones")
+      .insert({
+        cliente_id:  clienteData.id,
+        direccion:   cliente.direccion,
+        referencia:  cliente.referencia ?? null,
+        es_principal: false,
+      })
+      .select("id")
+      .single();
 
+    if (direccionError || !direccionData) {
+      return NextResponse.json(
+        { ok: false, error: direccionError?.message ?? "Error al guardar dirección" },
+        { status: 500 }
+      );
+    }
+
+    // ── Insert pedido ─────────────────────────────────────────────
     const { data: pedido, error: pedidoError } = await supabase
       .from("pedidos")
       .insert({
-        cliente_id: clienteData.id,
-        producto_id: primerItem.productoId,
-        cantidad: primerItem.cantidad,
+        cliente_id:   clienteData.id,
+        direccion_id: direccionData.id,
+        estado:       "pendiente",
         total,
-        estado: "pendiente",
+        metodo_pago:  "mock",
       })
       .select("id")
       .single();
 
     if (pedidoError || !pedido) {
       return NextResponse.json(
-        {
-          ok: false,
-          error: pedidoError?.message ?? "Error al crear el pedido",
-        },
+        { ok: false, error: pedidoError?.message ?? "Error al crear el pedido" },
+        { status: 500 }
+      );
+    }
+
+    // ── Insert ALL pedido_items ───────────────────────────────────
+    const pedidoItemsData = items.map((item) => {
+      const prod = productos.find((p) => p.id === item.productoId)!;
+      return {
+        pedido_id:       pedido.id,
+        producto_id:     item.productoId,
+        cantidad:        item.cantidad,
+        precio_unitario: prod.precio, // server-validated price
+      };
+    });
+
+    const { error: itemsError } = await supabase
+      .from("pedido_items")
+      .insert(pedidoItemsData);
+
+    if (itemsError) {
+      // Compensating delete — pedido was created but items failed
+      await supabase.from("pedidos").delete().eq("id", pedido.id);
+      console.error("[orders/create] pedido_items insert failed, pedido rolled back:", itemsError.message);
+      return NextResponse.json(
+        { ok: false, error: "Error al guardar los productos del pedido" },
         { status: 500 }
       );
     }
 
     await auditLog({
-      action: "order.created",
-      entity: "pedidos",
-      entity_id: pedido.id,
-      metadata: {
+      accion:      "order.created",
+      tabla:       "pedidos",
+      registro_id: pedido.id,
+      datos: {
         total,
         subtotal,
-        envio: ENVIO,
-        items_count: items.length,
+        envio:         ENVIO,
+        items_count:   items.length,
         cliente_email: cliente.email,
       },
+      ip,
     });
 
     return NextResponse.json(

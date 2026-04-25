@@ -34,10 +34,10 @@ export async function POST(req: NextRequest) {
     }
 
     await auditLog({
-      action: "payment.paid",
-      entity: "pedidos",
-      entity_id: pedidoId,
-      metadata: { metodo: "mock" },
+      accion:      "payment.paid",
+      tabla:       "pedidos",
+      registro_id: pedidoId,
+      datos:       { metodo: "mock" },
     });
 
     return NextResponse.json({ ok: true, data: { pedidoId } });

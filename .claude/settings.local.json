@@ -3,7 +3,16 @@
     "allow": [
       "Bash(xargs ls *)",
       "Bash(npx tsc *)",
-      "Bash(npx next *)"
+      "Bash(npx next *)",
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(gunzip -c \"C:\\\\Users\\\\azega\\\\.claude\\\\projects\\\\C--Users-azega-Documents-pusu-coffee\\\\8a75efb8-d661-4cc0-86db-4caace14bbe1\\\\tool-results\\\\webfetch-1777037211905-80r0vh.bin\")",
+      "Bash(mkdir -p /tmp/pusu-design)",
+      "Read(//tmp/**)",
+      "Bash(tar xzf *)",
+      "Bash(git check-ignore *)",
+      "mcp__claude_ai_Supabase__list_projects",
+      "mcp__supabase-axan__execute_sql",
+      "Bash(grep -nP \"#[0-9a-fA-F]{3,6}\\(?![0-9a-fA-F]\\)|rgba?\\\\\\(\\\\s*\\\\d\" components/features/carrito/CarritoDrawer.tsx components/features/checkout/PagoMock.tsx \"app/\\(public\\)/checkout/page.tsx\" \"app/\\(public\\)/pedido-confirmado/page.tsx\" components/features/productos/ProductoCardPremium.tsx)"
     ]
   }
 }
